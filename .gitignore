@@ -1,0 +1,20 @@
+dist/
+node_modules/
+coverage/
+.env
+.env.*
+*.log
+.DS_Store
+.idea/
+.vscode/
+*.tsbuildinfo
+.npm
+.eslintcache
+
+# Doczilla - Start
+doczilla/*
+!doczilla/docs/
+doczilla/docs/intro.md
+!doczilla/blog/
+!doczilla/static/
+# Doczilla - End
