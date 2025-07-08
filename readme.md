@@ -23,19 +23,19 @@ Groot makes it easy to manage translations with zero‑config setup, automatic d
 Install Groot via your package manager:
 
 ```bash
-npm install groot
+npm install groot-translation
 # or
-yarn add groot
+yarn add groot-translation
 # or
-pnpm add groot
+pnpm add groot-translation
 ```
 
 ## 🎯 Quick Start
 
-Groot comes with a CLI to help you initialize your project quickly. If you’re starting fresh, simply run:
+Groot comes with a CLI in shuriken to help you initialize your project quickly. If you’re starting fresh, simply run:
 
 ```bash
-npx groot init
+shuriken groot init
 ```
 
 This command will prompt you with a series of questions:
@@ -45,6 +45,8 @@ This command will prompt you with a series of questions:
 - Where should the translation files be stored?
 
 Based on your answers, Groot will generate a default `src/groot` folder with an index file and sample translation files for you.
+
+you need to install shuriken-cli the doc is here: [Shuriken]('https://soheilnikroo.github.io/shuri-doc/')
 
 ### Example Generated Index File
 
@@ -196,7 +198,7 @@ npx groot doctor --fix --report-path ./reports/groot-report.md
 Prompts you for details of a new locale (language name, locale code, text direction) and automatically updates your root index file (using marker comments) with the new locale configuration.
 
 ```bash
-npx groot add-locale
+shuriken groot add-locale
 ```
 
 ### `groot add-translation`
@@ -204,7 +206,7 @@ npx groot add-locale
 Prompts you for a new translation key (and an optional default value) and automatically adds the key to all your locale translation files without overriding non‑translation files (e.g., skips `index.d.ts`).
 
 ```bash
-npx groot add-translation
+shuriken groot add-translation
 ```
 
 _Note: All commands include fun, Groot‑themed logging messages to keep the mood light!_

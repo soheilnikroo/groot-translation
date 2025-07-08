@@ -1,52 +1,48 @@
 const globals = require('globals');
 const jestPlugin = require('eslint-plugin-jest');
-const snappConfig = require('eslint-config-snapp');
 const tailwindPlugin = require('eslint-plugin-tailwindcss');
-const transylvaniaPlugin = require('eslint-plugin-transylvania');
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const tsParser = require('@typescript-eslint/parser');
+
+function convertToFlatGlobals(obj) {
+  return Object.fromEntries(Object.keys(obj).map(key => [key, 'readonly']));
+}
 
 module.exports = [
   {
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: ['./tsconfig.json'], // only if you're using type-aware rules
+      },
       globals: {
-        ...globals.browser,
-        ...globals.es2021,
-        ...jestPlugin.environments.globals,
+        ...convertToFlatGlobals(globals.browser),
+        ...convertToFlatGlobals(globals.es2021),
+        ...convertToFlatGlobals(jestPlugin.environments.globals),
       },
     },
-    ignores: ['src/components/ui/*'],
     plugins: {
+      '@typescript-eslint': tsPlugin,
       jest: jestPlugin,
       tailwindcss: tailwindPlugin,
-      transylvania: transylvaniaPlugin,
     },
-    settings: snappConfig.settings,
     rules: {
-      // Eslint Core
       camelcase: 'off',
       'no-param-reassign': 'off',
-
-      // TypeScript Eslint
       '@typescript-eslint/no-unused-vars': [
         'warn',
-        {
-          argsIgnorePattern: '^_',
-        },
+        { argsIgnorePattern: '^_' },
       ],
-
-      // React
       'react/jsx-filename-extension': 'off',
-
-      // Miscellaneous
       'import/no-extraneous-dependencies': 'off',
       'prettier/prettier': 'off',
       'no-restricted-imports': ['error'],
       'jest/no-done-callback': 'off',
-
-      // Including rules from plugins
       ...jestPlugin.configs.recommended.rules,
-      ...snappConfig.rules,
       ...tailwindPlugin.configs.recommended.rules,
-      ...transylvaniaPlugin.configs.recommended.rules,
     },
   },
 ];
